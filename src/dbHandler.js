@@ -62,7 +62,7 @@ const update = async (file, id, data) => {
   
   const itemLocaton = content.findIndex(item => item.id === id)
 
-  if (itemLocation != -1) {
+  if (itemLocation !== -1) {
       content[itemLocaton] = data
   } else {
       throw new Error(`ID: ${id} not found`)
