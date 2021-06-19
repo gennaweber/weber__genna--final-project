@@ -2,17 +2,17 @@ import React from 'react'
 
 const SmallShape = () => {
   return (
-    <div class="small-dark-blue-shape-container">
+    <div className="small-dark-blue-shape-container">
         <svg viewBox="0 0 470 494" preserveAspectRatio="xMinYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_dddddd)">
-            <path fill-rule="evenodd" clip-rule="evenodd"
+            <path fillRule="evenodd" clipRule="evenodd"
             d="M359.604 239.578C354.577 280.918 406.344 352.163 365.243 362.85C323.135 373.799 321.91 280.478 281.051 260.003C252.069 245.48 221.645 287.393 191.489 275.782C156.707 262.389 124.431 231.591 116.418 196.613C108.211 160.783 131.368 128.315 151.032 99.1695C170.679 70.0489 191.794 35.0843 228.383 30.6612C264.389 26.3086 299.409 53.1895 327.935 77.7844C348.758 95.7386 352.663 123.541 364.241 147.799C372.279 164.64 386.195 180.08 385.291 197.962C384.429 215.016 361.655 222.711 359.604 239.578Z"
             fill="#365E68" />
           </g>
           <defs>
             <filter id="filter0_dddddd" x="0" y="-2.67029e-05" width="572.135" height="569.35" filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
             <feOffset dy="2.76726" />
             <feGaussianBlur stdDeviation="1.1069" />

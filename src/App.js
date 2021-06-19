@@ -19,10 +19,10 @@ function App() {
     setIsPopupOpen(!isPopupOpen)
   }
 
-  const [clickedImg, setClickedImg] = useState(1)
+  const [clickedImg, setClickedImg] = useState("todo")
 
   return (
-    <body>
+    <>
       <Nav />
       <main>
         <Home />
@@ -39,7 +39,7 @@ function App() {
         />
       </main>
       <Footer />
-    </body>
+    </>
   );
 }
 

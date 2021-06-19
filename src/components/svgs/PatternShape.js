@@ -2,10 +2,10 @@ import React from 'react'
 
 const PatternShape = () => {
   return (
-      <div class="pattern-shape-container">
+      <div className="pattern-shape-container">
         <svg viewBox="0 0 1863 1163" preserveAspectRatio="xMinYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink">
-          <path fill-rule="evenodd" clip-rule="evenodd"
+          <path fillRule="evenodd" clipRule="evenodd"
             d="M946.057 85.6906C1139.5 76.2403 1363.05 -62.907 1509.37 34.3665C1659.83 134.393 1477.09 335.195 1539.29 480.078C1601.86 625.824 1883.99 702.713 1861.75 855.173C1840.17 1003.15 1624.69 1098.81 1441.66 1149.43C1281.47 1193.73 1116.1 1116.06 946.057 1108.43C790.817 1101.47 637.985 1145.52 490.959 1106.77C303.319 1057.32 57.3616 1007.84 7.10505 860.954C-43.6718 712.545 191.695 600.757 269.449 459.351C337.472 335.643 290.459 165.515 432.695 86.9645C574.925 8.41698 770.999 94.2426 946.057 85.6906Z"
             fill="url(#pattern0)" />
           <defs>

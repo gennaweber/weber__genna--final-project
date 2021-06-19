@@ -727,8 +727,13 @@ textarea {
   color: #fafafb;
 }
 
-input:invalid, textarea:invalid {
+.error-input, input:invalid, textarea:invalid {
   background-color: rgba(198, 95, 99, 0.23);
+}
+
+.error {
+  color: rgba(198, 95, 99);
+  text-align: left;
 }
 
 /* FOOTER */

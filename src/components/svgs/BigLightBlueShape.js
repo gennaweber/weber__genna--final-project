@@ -2,17 +2,17 @@ import React from 'react'
 
 const BigLightBlueShape = () => {
   return (
-    <div class="light-shape-about-container">
+    <div className="light-shape-about-container">
       <svg viewBox="0 0 1102 1113" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_dddddd)">
-          <path fill-rule="evenodd" clip-rule="evenodd"
+          <path fillRule="evenodd" clipRule="evenodd"
             d="M517.042 79.6802C620.694 54.0145 727.309 -33.9985 822.608 14.167C916.207 61.4729 912.663 195.884 944.583 295.765C976.311 395.041 1053.54 500.394 1007.95 594.123C961.994 688.628 819.382 671.982 732.71 731.428C649.941 788.198 616.188 915.183 517.042 930.83C416.491 946.699 324.542 872.446 245.495 808.32C169.961 747.042 86.9145 673.551 80.3027 576.525C73.9178 482.827 170.186 419.418 213.309 335.984C246.89 271.01 248.77 189.587 304.672 142.414C362.496 93.6202 443.594 97.8668 517.042 79.6802Z"
             fill="#FAFAFB" />
         </g>
         <defs>
           <filter id="filter0_dddddd" x="0" y="0" width="1102" height="1113" filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB">
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
             <feOffset dy="2.76726" />
             <feGaussianBlur stdDeviation="1.1069" />

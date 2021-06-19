@@ -11,18 +11,18 @@ const Home = () => {
       <LightShape />
       <SmallShape />
       <GreenShape />
-      <div class="home-container">
-        <div class="hello-text">
+      <div className="home-container">
+        <div className="hello-text">
           <h1 id="hello-text"> 
             Hi. I'm <br/> Genna Weber. 
           </h1>
         </div>
-        <div class="sub-text-container">
-          <div class="sub-text">
+        <div className="sub-text-container">
+          <div className="sub-text">
             <h4>I'm a full-stack web developer.</h4>
           </div>
-          <button class="button">
-            <a href="#contact"><h3>GET IN TOUCH <i class="fas fa-paper-plane"></i></h3></a>
+          <button className="button">
+            <a href="#contact"><h3>GET IN TOUCH <i className="fas fa-paper-plane"></i></h3></a>
           </button>
         </div>
       </div>

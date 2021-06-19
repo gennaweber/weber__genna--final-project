@@ -1,13 +1,14 @@
 import React from 'react'
 
-const Image = ({ src, alt, togglePopup, setClickedImage, id }) => {
+const Image = ({ src, alt, togglePopup, setClickedImg, id }) => {
 
   const handleClick = (e) => {
     togglePopup()
+    setClickedImg(id)
   }
 
   return (
-    <div class="img-helper"><img onClick={handleClick} src={src} alt={alt} /></div>
+    <div className="img-helper"><img onClick={handleClick} src={src} alt={alt} /></div>
   )
 }
 

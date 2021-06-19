@@ -4,10 +4,10 @@ import ImageGrid from '../ImageGrid'
 const Portfolio = ({togglePopup, setClickedImg}) => {
   return (
     <section id="portfolio">
-      <div class="container-skinny">
+      <div className="container-skinny">
         <h2>PORTFOLIO</h2>
         <ul>
-          <div class="portfolio-text-container">
+          <div className="portfolio-text-container">
             <li>
               <h5>Javascript</h5>
             </li>
