@@ -1,8 +1,8 @@
 import React from 'react'
-import PatternShape from '../svgs/PatternShape'
-import LightShape from '../svgs/LightShape'
-import SmallShape from '../svgs/SmallShape'
-import GreenShape from '../svgs/GreenShape'
+import PatternShape from '../../svgs/PatternShape'
+import LightShape from '../../svgs/LightShape'
+import SmallShape from '../../svgs/SmallShape'
+import GreenShape from '../../svgs/GreenShape'
 
 const Home = () => {
   return (

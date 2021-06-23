@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageGrid from '../ImageGrid'
+import ImageGrid from '../../ImageGrid'
 
 const Portfolio = ({togglePopup, setClickedImg}) => {
   return (

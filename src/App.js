@@ -1,45 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './styles.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Nav from './components/Nav'
-import Home from './components/pages/Home'
-import Portfolio from './components/pages/Portfolio'
-import About from './components/pages/About'
-import Contact from './components/pages/Contact'
-import Footer from './components/Footer'
-import Popup from './components/Popup'
+import Main from './components/pages/Main'
+import Login from './components/pages/Login'
+import Entries from './components/pages/Entries'
 
 function App() {
 
-  //manage popup for portfolio section when images are clicked
-  //popup is closed by default
-  const [isPopupOpen, setIsPopupOpen] = useState(false)
-
-  const togglePopup = () => {
-    setIsPopupOpen(!isPopupOpen)
-  }
-
-  const [clickedImg, setClickedImg] = useState("todo")
-
   return (
-    <>
-      <Nav />
-      <main>
-        <Home />
-        <Portfolio 
-          togglePopup={togglePopup}
-          setClickedImg={setClickedImg}
-        />
-        <About />
-        <Contact />
-        <Popup 
-          togglePopup={togglePopup} 
-          isPopupOpen={isPopupOpen}
-          clickedImg={clickedImg}
-        />
-      </main>
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/entries" component={Entries} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

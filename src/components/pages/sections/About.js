@@ -1,6 +1,6 @@
 import React from 'react'
-import LightShapeAlt from '../svgs/LightShapeAlt'
-import BigLightBlueShape from '../svgs/BigLightBlueShape'
+import LightShapeAlt from '../../svgs/LightShapeAlt'
+import BigLightBlueShape from '../../svgs/BigLightBlueShape'
 
 const About = () => {
   return (
