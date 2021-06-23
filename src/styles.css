@@ -734,6 +734,8 @@ textarea {
 .error {
   color: rgba(198, 95, 99);
   text-align: left;
+  font-size: 0.85rem;
+  margin-bottom: 0;
 }
 
 /* FOOTER */

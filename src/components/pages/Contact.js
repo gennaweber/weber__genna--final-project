@@ -6,13 +6,36 @@ const Contact = () => {
   const [email, setEmail] = useState({value: "", valid: true})
   const [content, setContent] = useState({value: "", valid: true})
 
-  // if (name.value.length < 2 || name.value.length > 40) {
-  //   setName({valid: false})
-  // } else if (name.value.length >= 2){
-  //   setName({valid: true})
-  // }
+  if (typeof name.value !== "undefined"){
+    if ((name.value.length > 0 && name.value.length < 2) || name.value.length > 40) {
+      setName({valid: false})
+    } else if (name.value.length >= 2){
+      setName({valid: true})
+    }
+  }
 
-  console.log(name.value.length)
+  if (typeof email.value !== "undefined"){
+    if(email.value.length === 0){
+      setEmail({valid: true})
+    } else if (email.value.length < 2 || email.value.length > 40 || !email.value.includes("@") || !email.value.includes(".")) {
+      setEmail({valid: false})
+    } else {
+      setEmail({valid: true})
+    }
+  }
+
+  if(typeof content.value !== "undefined"){
+    if(content.value.length < 1 || content.value.length > 15){
+      setContent({valid: true})
+    }
+    else {
+      setContent({valid: false})
+    }
+  }
+
+  //TODO: On submit double check no fields are blank
+
+  console.log(name)
 
   const errMessage = (type) => {
     return (
@@ -26,14 +49,14 @@ const Contact = () => {
           <h2>GET IN TOUCH</h2>
           <p>Have a project in mind? Want to take your website to the next level? Let's chat about it.</p>
           <form>
-            <input className={!name.valid ? "error-input" : ""} type="text" id="myName" name="myName" placeholder="Name" value={name.value} onChange={e => setName(e.target.value)}/>
+            <input className={!name.valid ? "error-input" : ""} type="text" id="myName" name="myName" placeholder="Name" value={name.value} onChange={e => setName({...name, value: e.target.value})}/>
             {!name.valid && errMessage("name")}
             <br/>
-            <input className={!email.valid ? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email.value} onChange={e => setEmail(e.target.value) }/>
+            <input className={!email.valid ? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email.value} onChange={e => setEmail({...email, value: e.target.value}) }/>
             {!email.valid && errMessage("email")}
             <br/>
-            <textarea className={!content.valid ? "error-input" : ""} rows="10" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content.value} onChange={e => setContent(e.target.value)}></textarea>
-            {!content.valid && errMessage("message")}
+            <textarea className={!content.valid ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content.value} onChange={e => setContent({...content, value: e.target.value})}></textarea>
+            {!content.valid && errMessage("message of greater than 15 characters")}
             <br/>
             <button type="submit" className="submit"><h3>SUBMIT</h3></button>   
           </form>
