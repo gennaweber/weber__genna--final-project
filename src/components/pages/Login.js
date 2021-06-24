@@ -5,20 +5,20 @@ const Login = () => {
 
     let history = useHistory()
     let location = useLocation()
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [auth, setAuth] = useState(true)
 
     const loginSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/auth`, 
+      const response = await fetch ("http://localhost:5000/auth", 
         {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-type' : 'application/json'
         },
-        body: JSON.stringify({username, password})
+        body: JSON.stringify({email, password})
       })
 
       const payload = await response.json()
@@ -29,6 +29,7 @@ const Login = () => {
 
         let { from } = location.state || { from: { pathname: "/"} }
         history.replace(from)
+        setAuth(true)
       }
     }
 
@@ -37,7 +38,7 @@ const Login = () => {
         <h2>Login</h2>
         {!auth && <p>Invalid credentials</p>}
         <form onSubmit={loginSubmit}>
-          <input className="light-form" type="text" id="myUsername" name="myUsername" placeholder="Email" value={username} onChange={e => setUsername(e.target.value)}/>
+          <input className="light-form" type="text" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
           <br/>
           <input className="light-form" type="password" id="myPassword" name="myPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
           <br/>
