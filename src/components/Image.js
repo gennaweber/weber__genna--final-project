@@ -8,7 +8,7 @@ const Image = ({ src, alt, togglePopup, setClickedImg, id }) => {
   }
 
   return (
-    <div className="img-helper"><img onClick={handleClick} src={src} alt={alt} /></div>
+    <figure tabIndex="0" onKeyDown={handleClick} className="img-helper"><img className="portfolio-img" onClick={handleClick} src={src} alt={alt} /></figure>
   )
 }
 

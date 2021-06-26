@@ -7,7 +7,7 @@ const About = () => {
     <section id="about">
       <LightShapeAlt />
         <div className="container-wide">
-          <BigLightBlueShape />
+          {/* <BigLightBlueShape /> */}
           <h2>ABOUT</h2>
           <div className="profile-container">
             <img className="profile-img" src="images/profile.jpg" alt="Headshot of Genna Weber, a young white female with culy hair wearing a floral shirt." width="200" height="200" /> 

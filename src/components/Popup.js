@@ -57,13 +57,17 @@ const Popup = ({ isPopupOpen, togglePopup, clickedImg }) => {
     <div id="overlay">
       <div id="website-popup">
         <button onClick={togglePopup} className="exit"><i className="fas fa-times"></i></button>
-        <img id={findImg(clickedImg).id} src={findImg(clickedImg).src} alt={findImg(clickedImg).alt} height="200" width="300" />
-        <article className="website-text">
-          <a href={findImg(clickedImg).link} target="_blank" rel="noreferrer">
-            <h4>{findImg(clickedImg).name}</h4>
-          </a>
-          <h5>{findImg(clickedImg).subtitle}</h5>
-          <p>{findImg(clickedImg).description}</p>
+        <article>
+        <figure>
+          <img id={findImg(clickedImg).id} src={findImg(clickedImg).src} alt={findImg(clickedImg).alt} height="200" width="300" />
+            <div className="website-text">
+              <a href={findImg(clickedImg).link} target="_blank" rel="noreferrer">
+                <h4>{findImg(clickedImg).name}</h4>
+              </a>
+              <h5>{findImg(clickedImg).subtitle}</h5>
+              <figcaption>{findImg(clickedImg).description}</figcaption>
+            </div>
+          </figure>
         </article>
       </div>
     </div>

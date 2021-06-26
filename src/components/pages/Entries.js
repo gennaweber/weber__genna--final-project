@@ -11,7 +11,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
 const Entries = ({auth, setAuth}) => {
 
   let history = useHistory();
@@ -48,7 +47,8 @@ const Entries = ({auth, setAuth}) => {
 
 
   return (
-    <div className="container-wide">
+    <>
+    <main className="container-wide">
       <h2>Contact Form Entries</h2>
       <br/>
       <br/>
@@ -82,7 +82,8 @@ const Entries = ({auth, setAuth}) => {
       <div className="full-width">
         <button className="button right" onClick={e => logout(e)}><h3>LOGOUT</h3></button>
       </div>
-    </div>
+    </main>
+    </>
   )
 }
 

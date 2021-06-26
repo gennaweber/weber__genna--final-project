@@ -1,56 +1,45 @@
 import React, {useState} from 'react'
-import { validate } from 'uuid'
 import ErrorMessage from '../../ErrorMessage'
+import { Alert } from '@material-ui/lab'
+import { makeStyles } from '@material-ui/core/styles'
+import { validateEmail, validateContent, validateName } from '../../../helpers/validateHelper'
 
-const Contact = () => {
 
+const useStyles = makeStyles({
+  root: {
+    borderColor: 'rgba(198, 95, 99)'
+  }
+})
+
+const Contact = (props) => {
+
+  const classes = useStyles(props)
+
+  //TODO: CREATE VALUES OBJECT FOR MORE REUSABILITY
   const [validContent, setValidContent] = useState(true)
   const [validEmail, setValidEmail] = useState(true)
   const [validName, setValidName] = useState(true)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [content, setContent] = useState("")
+  const [submitMessage, setSubmitMessage] = useState("")
 
-  //TODO: MOVE TO SEPARATE HELPER FILE
-  // logic for validating entries
-
-  const validateName = (name) =>{
-    if(name.length <= 1) {
-      setValidName(false)  
-    } else {
-      setValidName(true)
-    }
-  }
-
-  const validateEmail = (email) => {
-    if(!email.includes("@") || !email.includes(".")) {
-      setValidEmail(false)
-    } else {
-      setValidEmail(true)
-    }
-  }
-
-  const validateContent = (content) => {
-    if(content.length > 15){
-      setValidContent(true)
-    } else {
-      setValidContent(false)
-    }
-  }
-
+  //LOGIC FOR VALIDATING ENTRIES
   const update = (e) => {
+    setSubmitMessage("")
+
     if(e.target.name === "myName"){
-      validateName(e.target.value)
+      setValidName(validateName(e.target.value))
       setName(e.target.value)
     }
 
     if(e.target.name === "myEmail"){
-      validateEmail(e.target.value)
+      setValidEmail(validateEmail(e.target.value))
       setEmail(e.target.value)
     }
 
     if(e.target.name === "myComments"){
-      validateContent(e.target.value)
+      setValidContent(validateContent(e.target.value))
       setContent(e.target.value)
     }
   }
@@ -58,13 +47,7 @@ const Contact = () => {
   const formSubmit = async event => {
     event.preventDefault()
 
-    validateName(name)
-    validateEmail(email)
-    validateContent(content)
-
-    //TODO: FIX BUG WHERE FIRST SUBMIT WORKS -- USE USEEFFECT?
-    //TODO: DON'T ALLOW RESUBMISSION UNLESS CHANGE
-    if(validName && validEmail && validContent){
+    if(validName && validEmail && validContent && (submitMessage === "")){
         const response = await fetch('http://localhost:5000/contact_form/entries', {
             method: 'POST',
             headers: {
@@ -75,14 +58,13 @@ const Contact = () => {
         })
         const payload = await response.json()
         if (response.status >= 400) {
-            alert(`Oops! Error: ${payload.message} for fields: ${payload.invalid.join(",")}`)
+            setSubmitMessage(`Oops! Error: ${payload.message} for fields: ${payload.invalid.join(",")}`)
         } else {
-            alert(`Congrats! Submission submitted with id: ${payload.id}`)
+            setSubmitMessage(`Congrats! Submission submitted with id: ${payload.id}`)
         }
       }
-
-      else {
-        alert("Please ensure you've filled everything out!")
+      else{
+        setSubmitMessage("Error: Please ensure the form is filled out correctly")
       }
     }
 
@@ -90,15 +72,16 @@ const Contact = () => {
       <section id="contact">
         <div className="contact-container">
           <h2>GET IN TOUCH</h2>
-          <p>Have a project in mind? Want to take your website to the next level? Let's chat about it.</p>
+          <p className="contact-subtext">Have a project in mind? Want to take your website to the next level? Let's chat about it.</p>
+          {(submitMessage.length > 1) && (submitMessage.includes("Error") ? <Alert variant="outlined" severity="error" className={classes.root}>{submitMessage}</Alert> : <Alert variant="outlined" severity="success">{submitMessage}</Alert>)}
           <form onSubmit={formSubmit}>
-            <input className={!validName ? "error-input" : ""} type="text" id="myName" name="myName" placeholder="Name" value={name} onChange={(e) => update(e)}/>
+            <input className={!validName ? "error-input" : ""} type="text" id="myName" name="myName" placeholder="Name" value={name} onChange={(e) => update(e)} required/>
             {!validName && <ErrorMessage message="Please include a valid name with more than 1 character"/>}
             <br/>
-            <input className={!validEmail? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => update(e)}/>
+            <input className={!validEmail? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => update(e)} required/>
             {!validEmail && <ErrorMessage message="Please include a valid email"/>}
             <br/>
-            <textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)}></textarea>
+            <textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)} required></textarea>
             {!validContent && <ErrorMessage message="Please include valid comments with more than 15 characters"/>}
             <br/>
             <button type="submit" className="submit"><h3>SUBMIT</h3></button>   
