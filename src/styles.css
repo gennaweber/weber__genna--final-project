@@ -331,6 +331,11 @@ article {
   top: 93px;
   transition: left 2s, top 2s, width 2s;
 }
+
+.light-shape-container:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 992px) {
   .light-shape-container {
     left: -200px;
@@ -385,9 +390,14 @@ article {
   overflow: hidden;
   right: -30px;
   top: 350px;
-  z-index: -1;
+  z-index: 1;
   transition: left 2s, top 2s, width 2s;
 }
+
+.small-dark-blue-shape-container:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 992px) {
   .small-dark-blue-shape-container {
     display: none;
@@ -405,6 +415,10 @@ article {
   left: 900px;
   top: -250px;
   transition: left 2s, top 2s, width 2s;
+}
+
+.green-shape-container:hover {
+  cursor: pointer;
 }
 
 .big-light-blue-shape-container {

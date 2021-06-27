@@ -36,6 +36,8 @@ function Main() {
 
   const [clickedImg, setClickedImg] = useState("todo")
 
+  //TODO: PARALLAX ANIMATION ON SCROLL?
+
   return (
     <>
       <Nav />

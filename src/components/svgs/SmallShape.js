@@ -1,8 +1,18 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const SmallShape = () => {
   return (
-    <div className="small-dark-blue-shape-container">
+    <motion.div 
+      drag
+      dragConstraints={{
+        top: -50,
+        left: -50,
+        right: 50,
+        bottom: 50,
+      }}
+      className="small-dark-blue-shape-container"
+    >
         <svg viewBox="0 0 470 494" preserveAspectRatio="xMinYMin meet" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_dddddd)">
             <path fillRule="evenodd" clipRule="evenodd"
@@ -47,7 +57,7 @@ const SmallShape = () => {
           </filter>
         </defs>
       </svg>
-    </div>
+    </motion.div>
   )
 }
 
