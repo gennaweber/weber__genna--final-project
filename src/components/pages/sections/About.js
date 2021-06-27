@@ -1,6 +1,36 @@
 import React from 'react'
 import LightShapeAlt from '../../svgs/LightShapeAlt'
-import BigLightBlueShape from '../../svgs/BigLightBlueShape'
+import Card from '../../Card'
+// import BigLightBlueShape from '../../svgs/BigLightBlueShape'
+
+const skills = {
+  client: [
+    {name: "HTML5", rating: 4},
+    {name: "CSS", rating: 4},
+    {name: "Bootstrap", rating: 3},
+    {name: "Javascript", rating: 4},
+    {name: "React", rating: 4},
+    {name: "Gatsby", rating: 4}
+  ],
+
+  server: [
+    {name: "Node.js", rating: 4},
+    {name: "Express.js", rating: 3},
+    {name: "PHP", rating: 2},
+    {name: "MySQL", rating: 1},
+    {name: "MongoDB", rating: 2},
+    {name: "Heroku CLI", rating: 1}
+  ],
+
+  other: [
+    {name: "Git", rating: 4},
+    {name: "Traditional Art", rating: 4},
+    {name: "Figma", rating: 3},
+    {name: "Photoshop", rating: 3},
+    {name: "Procreate", rating: 2}
+  ]
+}
+
 
 const About = () => {
   return (
@@ -18,81 +48,24 @@ const About = () => {
           </div>
           <h4>MY SKILLS</h4>
           <div className="skill-container">
-            <div className="skill-box">
-              <div className="color-block-1">
-                <h3><i className="fas fa-laptop-code fa-2x"></i></h3>
-                <h3>CLIENT-SIDE</h3>
-              </div>
-              <ul className="list-container">
-                <li>
-                  HTML5 <span className="right">⭐⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  CSS <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  Bootstrap <span className="right">⭐⭐⭐</span>
-                </li>
-                <li>
-                  Javascript <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  React <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  Gatsby <span className="right">⭐⭐⭐⭐</span>
-                </li>
-              </ul>
-            </div>
-          <div className="skill-box">
-              <div className="color-block-2">
-                <h3><i className="fas fa-cogs fa-2x"></i></h3>
-                <h3>SERVER-SIDE</h3>
-              </div>
-                <ul className="list-container">
-                <li>
-                  Node.js <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  Express.js <span className="right">⭐⭐⭐</span>
-                </li>
-                <li>
-                  PHP <span className="right">⭐⭐</span>
-                </li>
-                <li>
-                  MySQL<span className="right">⭐</span>
-                </li>
-                <li>
-                  MongoDB <span className="right">⭐⭐</span>
-                </li>
-                <li>
-                  Heroku CLI <span className="right">⭐</span>
-                </li>
-              </ul>
-            </div>
-          <div className="skill-box">
-            <div className="color-block-3">
-              <h3><i className="far fa-object-ungroup fa-2x"></i></h3>
-              <h3>DESIGN & MORE</h3>
-            </div>
-              <ul className="list-container">
-                <li>
-                  Git <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  Traditional art <span className="right">⭐⭐⭐⭐</span>
-                </li>
-                <li>
-                  Figma <span className="right">⭐⭐⭐</span>
-                </li>
-                <li>
-                  Photoshop <span className="right">⭐⭐⭐</span>
-                </li>
-                <li>
-                  Procreate <span className="right">⭐⭐⭐</span>
-                </li>
-            </ul>
-          </div>
+            <Card 
+              color="purple"  
+              icon={<i className="fas fa-laptop-code fa-2x"></i>}
+              title="CLIENT SIDE"
+              skills={skills.client}
+            />
+            <Card
+              color="blue"
+              icon={<i className="fas fa-cogs fa-2x"></i>}
+              title="SERVER SIDE"
+              skills={skills.server}
+            />
+            <Card 
+              color="grey"
+              icon={<i className="far fa-object-ungroup fa-2x"></i>}
+              title="DESIGN & MORE"
+              skills={skills.other}
+            />
         </div>
       </div>
     </section>

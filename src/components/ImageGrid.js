@@ -2,6 +2,10 @@ import React from 'react'
 import Image from './Image'
 
 const ImageGrid = ({togglePopup, setClickedImg}) => {
+
+  //TODO: TURN DATA INTO OBJECT AND USE MAP()
+  //TODO: CREATE SORTING FEATURE FOR PROJECTS BASED ON LANGUAGE
+
   return (
     <div className="img-container">
       <Image 

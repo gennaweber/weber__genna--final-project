@@ -22,6 +22,7 @@
     }
   }
 
+  //TODO: MAKE VALIDATION MORE ROBUST
   const validatePassword = (password) => {
     if (password.length > 8){
       return true

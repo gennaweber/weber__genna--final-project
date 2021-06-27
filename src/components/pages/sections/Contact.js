@@ -3,7 +3,7 @@ import ErrorMessage from '../../ErrorMessage'
 import { Alert } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles'
 import { validateEmail, validateContent, validateName } from '../../../helpers/validateHelper'
-
+import Button from '../../Button'
 
 const useStyles = makeStyles({
   root: {
@@ -15,7 +15,7 @@ const Contact = (props) => {
 
   const classes = useStyles(props)
 
-  //TODO: CREATE VALUES OBJECT FOR MORE REUSABILITY
+  //TODO: CREATE VALUES OBJECT & ERRORS OBJECT FOR MORE REUSABILITY
   const [validContent, setValidContent] = useState(true)
   const [validEmail, setValidEmail] = useState(true)
   const [validName, setValidName] = useState(true)
@@ -84,7 +84,7 @@ const Contact = (props) => {
             <textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)} required></textarea>
             {!validContent && <ErrorMessage message="Please include valid comments with more than 15 characters"/>}
             <br/>
-            <button type="submit" className="submit"><h3>SUBMIT</h3></button>   
+            <Button type="submit" position="right">SUBMIT</Button>
           </form>
         </div>
     </section>
