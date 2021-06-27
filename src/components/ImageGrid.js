@@ -5,12 +5,13 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
 
   //TODO: TURN DATA INTO OBJECT AND USE MAP()
   //TODO: CREATE SORTING FEATURE FOR PROJECTS BASED ON LANGUAGE
+  //TODO: ADD MORE PROJECTS IN CAROUSEL
 
   return (
     <div className="img-container">
       <Image 
         src="images/todo.jpg"
-        alt="Purple todo list with date on the top"
+        alt="Purple todo list date on the top"
         id="todo"
         togglePopup={togglePopup}
         setClickedImg={setClickedImg}

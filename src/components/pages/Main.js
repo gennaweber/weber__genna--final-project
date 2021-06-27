@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Nav from '../Nav'
 import Home from './sections/Home'
 import Portfolio from './sections/Portfolio'
@@ -17,7 +17,26 @@ function Main() {
     setIsPopupOpen(!isPopupOpen)
   }
 
+  //TODO: CREATE HOOKS FOLDER
+  //TODO: ADD CLICK-OFF HOOK AS WELL
+  //close popup with esc key
+  const escFunction = useCallback((event) => {
+    if(event.keyCode === 27) {
+      setIsPopupOpen(false)
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  })
+
   const [clickedImg, setClickedImg] = useState("todo")
+
+  //TODO: PARALLAX ANIMATION ON SCROLL?
 
   return (
     <>
@@ -38,7 +57,7 @@ function Main() {
       </main>
       <Footer />
     </>
-  );
+  )
 }
 
-export default Main;
+export default Main

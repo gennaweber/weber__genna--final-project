@@ -16,6 +16,7 @@ const CreateUser = (props) => {
 
   const classes = useStyles(props)
 
+  //TODO: SIMPLIFY INTO OBJECTS
   const [validEmail, setValidEmail] = useState(true)
   const [validName, setValidName] = useState(true)
   const [password, setPassword] = useState("")
@@ -25,6 +26,7 @@ const CreateUser = (props) => {
   const [submitMessage, setSubmitMessage] = useState("")
 
   const formSubmit = async event => {
+
     event.preventDefault()
 
     if(validName && validEmail && (passwordError.length === 0) && (submitMessage === "")){
@@ -49,6 +51,8 @@ const CreateUser = (props) => {
     }
 
   const update = (e) => {
+
+    //reset submit message on change
     setSubmitMessage("")
 
     if(e.target.name === "myName"){
@@ -90,14 +94,11 @@ const CreateUser = (props) => {
             <form onSubmit={formSubmit}>
               <input className="light-form" type="text" id="myName" name="myName" placeholder="Name" value={name} onChange={e => update(e)} required/>
               {!validName && <ErrorMessage message="Please include a valid name with more than 1 character"/>}
-              <br/>
               <input className="light-form" type="text" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => update(e)} required/>
               {!validEmail && <ErrorMessage message="Please include a valid email"/>}
-              <br/>
               <input className="light-form" type="password" id="myPassword" name="myPassword" placeholder="Password" value={password} onChange={e => update(e)} required/>
               <input className="light-form" type="password" id="myPassword2" name="myPassword2" placeholder="Retype Password" onChange={e => update(e)} required/>
               {(passwordError.length > 0) && <ErrorMessage message={passwordError}/>}
-              <br/>
               <Button type="submit" position="right">SIGN IN</Button>
           </form>
           </div>

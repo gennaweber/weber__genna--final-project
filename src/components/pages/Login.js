@@ -37,20 +37,18 @@ const Login = ({auth, setAuth}) => {
 
   return (
       <>
-      <main className="block-container">
-        <div className="contact-container">
+        <main className="block-container">
+          <div className="contact-container">
             <h2>Login</h2>
             <form onSubmit={loginSubmit}>
               <input className="light-form" type="text" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required/>
-              <br/>
               <input className="light-form" type="password" id="myPassword" name="myPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
-              <br/>
               {!auth && attemptedAuth && <ErrorMessage message="Invalid credentials"/>}
               <Button type="submit" position="right">SIGN IN</Button>
             </form>
-        </div>
-      </main>
-      <SimpleFooter />
+          </div>
+        </main>
+        <SimpleFooter />
       </>
   )
 }
