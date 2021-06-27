@@ -21,6 +21,9 @@ const Footer = () => {
               <li>
                 <a href="https://github.com/gennaweber" rel="noreferrer" target="_blank"><i className="fab fa-github"></i></a>
               </li>
+              <li>
+                <a href="https://gitlab.com/gennaweber" rel="noreferrer" target="_black"><i className="fab fa-gitlab"></i></a>
+              </li>
             </div>
           </ul>
         </div>

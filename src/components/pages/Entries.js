@@ -21,17 +21,20 @@ const Entries = ({auth, setAuth}) => {
   const user = parseJwt(token).email
   const [listing, setListing] = useState([])
 
-  //Redirect to login screen when auth is bad
+  //Redirect to login screen when auth is false
   if (!auth){
     history.push("/login")
   }
 
-  const logout = event => {
+  const logout = (event) => {
       event.preventDefault()
       sessionStorage.removeItem('token')
       history.push("/login")
       setAuth(false)
   }
+
+
+  //TODO: LOG OUT USER AFTER CERTAIN TIME
 
   useEffect(() => {
       const getData = async () => {
@@ -48,44 +51,39 @@ const Entries = ({auth, setAuth}) => {
   }, [token])
 
 
-
   return (
     <>
     <main className="block-container">
       <div className="container-wide">
-      <h2>Contact Form Entries</h2>
-      <br/>
-      <br/>
+        <h2>Contact Form Entries</h2>
+          <div className="full-width">
+            <p className="sub-text left">Logged in as {user}</p>
+          </div>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell><h6>Name</h6></TableCell>
+                <TableCell><h6>Email</h6></TableCell>
+                <TableCell><h6>Message</h6></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {listing.length ===  0 && <TableRow><TableCell>No entries yet</TableCell></TableRow>}
+              {listing.length > 0 &&
+                listing.map(entry => 
+                <TableRow key={uuid4()}>
+                  <TableCell>{entry.name}</TableCell>
+                  <TableCell>{entry.email}</TableCell>
+                  <TableCell>{entry.content}</TableCell>
+                </TableRow>)
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
         <div className="full-width">
-          <p className="left">Logged in as {user}</p>
+          <Button position="right" logout={logout}>LOGOUT</Button>
         </div>
-      <br/>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell><h6>Name</h6></TableCell>
-              <TableCell><h6>Email</h6></TableCell>
-              <TableCell><h6>Message</h6></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {listing.length ===  0 && <TableRow><TableCell>No entries yet</TableCell></TableRow>}
-            {listing.length > 0 &&
-              listing.map(entry => 
-              <TableRow key={uuid4()}>
-                <TableCell>{entry.name}</TableCell>
-                <TableCell>{entry.email}</TableCell>
-                <TableCell>{entry.content}</TableCell>
-              </TableRow>)
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <br/>
-      <div className="full-width">
-        <Button position="right" logout={logout}>LOGOUT</Button>
-      </div>
       </div>
     </main>
     <SimpleFooter />

@@ -1,6 +1,6 @@
 # Personal Site
 
-The backend server repo for this project can be found at https://github.com/gennaweber/personal-site-node.
+The backend server repo for this project can be found at https://gitlab.com/gennaweber/personal-site-node.
 
 ## Getting Started with Create React App
 

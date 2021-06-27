@@ -12,13 +12,7 @@ const Portfolio = ({togglePopup, setClickedImg}) => {
               <h5>Javascript</h5>
             </li>
             <li>
-              <h5>/</h5>
-            </li>
-            <li>
               <h5>Node.js</h5>
-            </li>
-            <li>
-              <h5>/</h5>
             </li>
             <li>
               <h5>React</h5>

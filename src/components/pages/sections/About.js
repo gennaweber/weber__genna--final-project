@@ -1,7 +1,6 @@
 import React from 'react'
 import LightShapeAlt from '../../svgs/LightShapeAlt'
 import Card from '../../Card'
-// import BigLightBlueShape from '../../svgs/BigLightBlueShape'
 
 const skills = {
   client: [
@@ -37,7 +36,6 @@ const About = () => {
     <section id="about">
       <LightShapeAlt />
         <div className="container-wide">
-          {/* <BigLightBlueShape /> */}
           <h2>ABOUT</h2>
           <div className="profile-container">
             <img className="profile-img" src="images/profile.jpg" alt="Headshot of Genna Weber, a young white female with culy hair wearing a floral shirt." width="200" height="200" /> 

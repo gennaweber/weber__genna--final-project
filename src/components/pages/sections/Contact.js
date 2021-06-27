@@ -24,8 +24,9 @@ const Contact = (props) => {
   const [content, setContent] = useState("")
   const [submitMessage, setSubmitMessage] = useState("")
 
-  //LOGIC FOR VALIDATING ENTRIES
   const update = (e) => {
+
+    //reset the submit message on change
     setSubmitMessage("")
 
     if(e.target.name === "myName"){
@@ -45,6 +46,7 @@ const Contact = (props) => {
   }
 
   const formSubmit = async event => {
+    
     event.preventDefault()
 
     if(validName && validEmail && validContent && (submitMessage === "")){
@@ -68,6 +70,7 @@ const Contact = (props) => {
       }
     }
 
+  //TODO: MAKE REUSABLE FORM COMPONENTS
   return (
       <section id="contact">
         <div className="contact-container">
@@ -77,13 +80,10 @@ const Contact = (props) => {
           <form onSubmit={formSubmit}>
             <input className={!validName ? "error-input" : ""} type="text" id="myName" name="myName" placeholder="Name" value={name} onChange={(e) => update(e)} required/>
             {!validName && <ErrorMessage message="Please include a valid name with more than 1 character"/>}
-            <br/>
             <input className={!validEmail? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => update(e)} required/>
             {!validEmail && <ErrorMessage message="Please include a valid email"/>}
-            <br/>
             <textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)} required></textarea>
             {!validContent && <ErrorMessage message="Please include valid comments with more than 15 characters"/>}
-            <br/>
             <Button type="submit" position="right">SUBMIT</Button>
           </form>
         </div>

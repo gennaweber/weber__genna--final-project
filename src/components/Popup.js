@@ -2,7 +2,8 @@ import React from 'react'
 
 const Popup = ({ isPopupOpen, togglePopup, clickedImg }) => {
 
-  //TODO: Add more images for each example as a carousel gallery
+  //TODO: ADD MORE IMAGES FOR EACH EXAMPLE IN CAROUSEL FORMAT
+  //TODO: ADD ANIMATION ON OPEN
 
   const copy = [
       { 
