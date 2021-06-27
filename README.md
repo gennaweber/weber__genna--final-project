@@ -2,6 +2,10 @@
 
 The backend server repo for this project can be found at https://gitlab.com/gennaweber/personal-site-node.
 
+To access the protected /entries route you can use the login:
+email: gennamweber@gmail.com
+password: password
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
