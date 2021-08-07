@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Image from './Image'
 
 const ImageGrid = ({togglePopup, setClickedImg}) => {
@@ -7,37 +7,53 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
   //TODO: CREATE SORTING FEATURE FOR PROJECTS BASED ON LANGUAGE
   //TODO: ADD MORE PROJECTS IN CAROUSEL
 
+  const [description, setDescription] = useState("Loading...")
+  const [images, setImages] = useState([])
+
+    const fetchDesc = async () => {
+    const desc = await fetch(`http://localhost:5000/portfolio/description`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type' : 'application/json'
+      }
+    })
+    desc.json().then((desc) => setDescription(desc))
+    .catch((err)=>console.log(err));
+  }
+
+    const fetchImgs = async () => {
+    const imgs = await fetch(`http://localhost:5000/portfolio/images`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type' : 'application/json'
+      }
+    })
+    imgs.json().then((imgs) => setImages(imgs))
+    .catch((err)=>console.log(err));
+  }
+
+  
+  useEffect(()=>{
+    fetchDesc();
+    fetchImgs();
+  }, []);
+
   return (
     <div className="img-container">
-      <Image 
-        src="images/todo.jpg"
-        alt="Purple todo list date on the top"
-        id="todo"
-        togglePopup={togglePopup}
-        setClickedImg={setClickedImg}
-      />
-      <Image 
-        src="images/email.jpg"
-        alt="Simple subscription form for a newletter"
-        id="email"
-        togglePopup={togglePopup}
-        setClickedImg={setClickedImg}
-      />
-      <Image 
-        src="images/lessons.jpg"
-        alt="Simple, mainly text website with green header"
-        id="lg"
-        togglePopup={togglePopup}
-        setClickedImg={setClickedImg}
-      />
-      <Image 
-        src="images/gallery.jpg"
-        alt="Gallery website with a photograph of a leaf in the background overlaid with a welcome message"
-        id="gallery"
-        togglePopup={togglePopup}
-        setClickedImg={setClickedImg}
-      />
-      <p className="sub-copy">Click the images to learn more about each site I've created or helped create. This particular website was built first using vanilla Javascript and later refactored to use React.</p>
+      {(images.length > 1) && images.map(image => 
+        <Image 
+          src={image.src}
+          alt={image.alt}
+          id={image.id}
+          togglePopup={togglePopup}
+          setClickedImg={setClickedImg}
+        />
+      )}
+      <p className="sub-copy">{description}</p>
     </div>
   )
 }

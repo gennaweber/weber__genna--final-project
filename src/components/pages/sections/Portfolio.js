@@ -1,7 +1,29 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ImageGrid from '../../ImageGrid'
 
 const Portfolio = ({togglePopup, setClickedImg}) => {
+
+  const [categories, setCategories] = useState([])
+
+
+
+  const fetchCats = async () => {
+    const cat = await fetch(`http://localhost:5000/resume/categories`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type' : 'application/json'
+      }
+    })
+    cat.json().then((cat) => setCategories(cat))
+    .catch((err)=>console.log(err));
+  }
+
+  useEffect(()=>{
+    fetchCats();
+  }, []);
+
   return (
     <section id="portfolio">
       <div className="container-skinny">

@@ -24,7 +24,7 @@ const Card = ({ color, icon, title, skillID }) => {
 
   useEffect(()=>{
     fetchSkills(skillID)
-  }, []);
+  }, [skillID]);
 
   return (
     <div className="skill-box">
