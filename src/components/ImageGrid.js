@@ -3,7 +3,6 @@ import Image from './Image'
 
 const ImageGrid = ({togglePopup, setClickedImg}) => {
 
-  //TODO: TURN DATA INTO OBJECT AND USE MAP()
   //TODO: CREATE SORTING FEATURE FOR PROJECTS BASED ON LANGUAGE
   //TODO: ADD MORE PROJECTS IN CAROUSEL
 
