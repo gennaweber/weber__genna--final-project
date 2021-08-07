@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import LightShapeAlt from '../../svgs/LightShapeAlt'
 import Card from '../../Card'
 
@@ -31,39 +31,63 @@ const skills = {
 }
 
 
+
+
 const About = () => {
+
+  const [description, setDescription] = useState("Loading...")
+  const [categories, setCategories] = useState([])
+  const [skills, setSkills] = useState([])
+
+  const fetchDesc = async () => {
+    const desc = await fetch(`http://localhost:5000/resume/description`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type' : 'application/json'
+      }
+    })
+    desc.json().then((desc) => setDescription(desc))
+    .catch((err)=>console.log(err));
+  }
+
+  const fetchCats = async () => {
+    const cat = await fetch(`http://localhost:5000/resume/categories`,
+      {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-type' : 'application/json'
+      }
+    })
+    cat.json().then((cat) => setCategories(cat))
+    .catch((err)=>console.log(err));
+  }
+
+  useEffect(()=>{
+    fetchDesc();
+    fetchCats();
+  }, []);
+
   return (
     <section id="about">
       <LightShapeAlt />
-        <div className="container-wide">
-          <h2>ABOUT</h2>
-          <div className="profile-container">
-            <img className="profile-img" src="images/profile.jpg" alt="Headshot of Genna Weber, a young white female with culy hair wearing a floral shirt." width="200" height="200" /> 
-            <p className="profile-text">Hi, I'm Genna Weber. I'm a 23-year-old web developer in Southwestern Ontario. I'm currently a student at York University School of Continuing Studies in the Full Stack Web Development certificate program set to graduate Dec 2021.
-            <br /> 
-            <br />
-            I've been working remotely for the past 4 years working as a Medical Language Specialist. I'm passionate about coding and eager to keep learning.</p>
-          </div>
-          <h4>MY SKILLS</h4>
-          <div className="skill-container">
-            <Card 
-              color="purple"  
-              icon={<i className="fas fa-laptop-code fa-2x"></i>}
-              title="CLIENT SIDE"
-              skills={skills.client}
-            />
-            <Card
-              color="blue"
-              icon={<i className="fas fa-cogs fa-2x"></i>}
-              title="SERVER SIDE"
-              skills={skills.server}
-            />
-            <Card 
-              color="grey"
-              icon={<i className="far fa-object-ungroup fa-2x"></i>}
-              title="DESIGN & MORE"
-              skills={skills.other}
-            />
+      <div className="container-wide">
+        <h2>ABOUT</h2>
+        <div className="profile-container">
+          <img className="profile-img" src="images/profile.jpg" alt="Headshot of Genna Weber, a young white female with culy hair wearing a floral shirt." width="200" height="200" /> 
+          <p className="profile-text" dangerouslySetInnerHTML={{__html: (description.replace("\n", "<br/><br/>"))}}></p>
+        </div>
+        <h4>MY SKILLS</h4>
+        <div className="skill-container">
+        {(categories.length > 1) && categories.map(category =>
+          <Card 
+            color={category.skillCatColor} 
+            icon={category.skillCatIcon}
+            title={category.skillCatName}
+            skillID={category.skillCatID}
+          />)}
         </div>
       </div>
     </section>

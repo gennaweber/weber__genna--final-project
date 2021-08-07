@@ -62,7 +62,8 @@ const Contact = (props) => {
         if (response.status >= 400) {
             setSubmitMessage(`Oops! Error: ${payload.message} for fields: ${payload.invalid.join(",")}`)
         } else {
-            setSubmitMessage(`Congrats! Submission submitted with id: ${payload.id}`)
+            console.log(payload)
+            setSubmitMessage(`Congrats! Submission submitted with id: ${payload.insertId}`)
         }
       }
       else{
