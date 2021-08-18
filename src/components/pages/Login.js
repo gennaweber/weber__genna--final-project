@@ -4,7 +4,7 @@ import ErrorMessage from '../ErrorMessage'
 import SimpleFooter from '../SimpleFooter'
 import Button from '../Button'
 
-const Login = ({auth, setAuth}) => {  
+const Login = ({auth, setAuth }) => {  
 
     let history = useHistory()
     let location = useLocation()
@@ -48,7 +48,10 @@ const Login = ({auth, setAuth}) => {
             </form>
           </div>
         </main>
-        <SimpleFooter />
+        <SimpleFooter 
+          auth={auth} 
+          setAuth={setAuth}
+        />
       </>
   )
 }

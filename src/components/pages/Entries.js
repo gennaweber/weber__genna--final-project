@@ -66,6 +66,7 @@ const Entries = ({auth, setAuth}) => {
                 <TableCell><h6>Name</h6></TableCell>
                 <TableCell><h6>Email</h6></TableCell>
                 <TableCell><h6>Message</h6></TableCell>
+                <TableCell><h6>Submit Time</h6></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -73,9 +74,10 @@ const Entries = ({auth, setAuth}) => {
               {listing.length > 0 &&
                 listing.map(entry => 
                 <TableRow key={uuid4()}>
-                  <TableCell>{entry.name}</TableCell>
-                  <TableCell>{entry.email}</TableCell>
-                  <TableCell>{entry.content}</TableCell>
+                  <TableCell>{entry.entryName}</TableCell>
+                  <TableCell>{entry.entryEmail}</TableCell>
+                  <TableCell>{entry.entryContent}</TableCell>
+                  <TableCell>{entry.entrySubmitTime}</TableCell>
                 </TableRow>)
               }
             </TableBody>
@@ -86,7 +88,10 @@ const Entries = ({auth, setAuth}) => {
         </div>
       </div>
     </main>
-    <SimpleFooter />
+    <SimpleFooter 
+      auth={auth} 
+      setAuth={setAuth}
+    />
     </>
   )
 }

@@ -103,7 +103,10 @@ const CreateUser = (props) => {
           </form>
           </div>
         </main>
-        <SimpleFooter/>
+        <SimpleFooter 
+          auth={props.auth} 
+          setAuth={props.setAuth}
+        />
     </>
   )
 }

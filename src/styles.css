@@ -128,7 +128,7 @@ input {
   font-size: 1rem;
   font-family: "Lato", sans-serif;
   padding: 0 10px;
-  transform: translateX(-10px);
+  /* transform: translateX(-10px); */
 }
 
 textarea {
@@ -140,7 +140,10 @@ textarea {
   font-size: 1rem;
   font-family: "Lato", sans-serif;
   padding: 10px 10px;
-  transform: translateX(-10px);
+}
+
+.textarea-align {
+  /* transform: translateX(-10px); */
 }
 
 ::placeholder {
@@ -874,4 +877,3 @@ article {
 .footer-list i {
   color: #fafafb;
 }
-

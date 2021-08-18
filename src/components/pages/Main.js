@@ -32,7 +32,7 @@ function Main() {
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
-  })
+  }, [isPopupOpen, escFunction])
 
   const [clickedImg, setClickedImg] = useState("todo")
 

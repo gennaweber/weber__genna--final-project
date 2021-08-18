@@ -83,7 +83,7 @@ const Contact = (props) => {
             {!validName && <ErrorMessage message="Please include a valid name with more than 1 character"/>}
             <input className={!validEmail? "error-input" : ""} type="email" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => update(e)} required/>
             {!validEmail && <ErrorMessage message="Please include a valid email"/>}
-            <textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)} required></textarea>
+            <div className="textarea-align"><textarea className={!validContent ? "error-input" : ""} rows="8" cols="30" id="myComments" name="myComments" placeholder="What can I help you with?" value={content} onChange={e => update(e)} required></textarea></div>
             {!validContent && <ErrorMessage message="Please include valid comments with more than 15 characters"/>}
             <Button type="submit" position="right">SUBMIT</Button>
           </form>
