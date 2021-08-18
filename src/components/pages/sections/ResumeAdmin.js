@@ -11,17 +11,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import EditRow from '../../EditRow';
+import { makeStyles } from '@material-ui/core/styles';
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-    fontSize: '24px'
-  },
+import DescriptionTable from '../../DescriptionTable';
 
-}))(TableCell);
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -39,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
 
   width: {
     width: "75%",
-    // boxSizing: "border-box",
-    // margin: 10,
-    // left: 10
   },
   
 }));
@@ -50,19 +40,17 @@ const ResumeAdmin = ({user}) => {
 
   const classes = useStyles();
 
+  const [savedRes, setSavedRes] = useState("")
   const [resume, setResume] = useState([])
-  const [updateResume, setUpdateResume] = useState({})
   const [updateSkill, setUpdateSkill] = useState({})
   const [editStateSkill, setEditStateSkill] = useState(false)
-  const [editStateDes, setEditStateDes] = useState(false)
-  const [resumeDescription, setResumeDescription] = useState("Loading...")
-  const [updateDesc, setUpdateDesc] = useState({})
   const [status, setStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
 
   //TODO: LOG OUT USER AFTER CERTAIN TIME
 
-  const fetchResume = async (user) => {
+  useEffect(()=>{
+    const fetchResume = async (user) => {
     const res = await fetch(`http://localhost:5000/resume/${user}`,
       {
         method: 'GET',
@@ -73,30 +61,10 @@ const ResumeAdmin = ({user}) => {
     })
     res.json().then((res) => setResume(res))
     .catch((err)=>console.log(err));
-  }
-
-  const fetchResumeDesc = async () => {
-    const desc = await fetch(`http://localhost:5000/resume/description`,
-      {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-type' : 'application/json'
-      }
-    })
-    desc.json().then((desc) => setResumeDescription(desc))
-    .catch((err)=>console.log(err));
-  }
-
-  useEffect(()=>{
-    fetchResume(user)
-    fetchResumeDesc()
-  }, [user]);
-
-    const toggleEdit = (skillID) => {
-      setUpdateDesc(resumeDescription)
-      setEditStateDes(!editStateDes)
     }
+
+    fetchResume(user);
+  }, [user, savedRes])
 
     const toggleSkillEdit = (skillID) => {
       setEditStateSkill(!editStateSkill)
@@ -104,35 +72,6 @@ const ResumeAdmin = ({user}) => {
         setUpdateSkill(resume.find(skill => skill.id === skillID))
       }
     }
-
-    const handleDescChange = (e) => {
-      let value = e.target.value
-      setUpdateDesc(value)
-   }
-
-    const descFormSubmit = async event => {
-      event.preventDefault()
-      const response = await fetch (`http://localhost:5000/resume/description/${user}`, 
-        {
-          method: 'PUT',
-          headers: {
-            'Accept': 'application/json',
-            'Content-type' : 'application/json'
-        },
-        body: JSON.stringify({desc: updateDesc})
-      })
-  
-      if (response.status === 200) {
-          setEditStateDes(false)
-          setStatus("success")
-          fetchResumeDesc()
-          setErrorMessage("Content updated!")
-      } else {
-          setStatus("error")
-          setErrorMessage("Content could not be updated.")
-      }
-    }
-
 
 
   const handleSkillChange = (e, i) => {
@@ -142,48 +81,37 @@ const ResumeAdmin = ({user}) => {
     setUpdateSkill((prevData) => ({...prevData, [key]:value}))
   }
 
-  console.log(updateSkill)
+    const skillEditSubmit = async event => {
+      event.preventDefault()
+      const response = await fetch (`http://localhost:5000/resume/skills/${updateSkill.id}`, 
+        {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-type' : 'application/json'
+        },
+        body: JSON.stringify(updateSkill)
+      })
+  
+      if (response.status === 200) {
+          setSavedRes(response)
+          setEditStateSkill(false)
+          setStatus("success")
+          setErrorMessage("Content updated!")
+      } else {
+          setSavedRes(response)
+          setStatus("error")
+          setErrorMessage("Content could not be updated.")
+      }
+    }
 
   return (
     <div>
         {!status || <Alert fullWidth className={classes.margin} severity={status || "info"}>{errorMessage}</Alert>}
-        <TableContainer className={classes.margin} component={Paper}>
-          <form className={classes.form} onSubmit={(e)=>descFormSubmit(e)}>
-          <Table>
-            <TableHead>
-            <TableRow><StyledTableCell colSpan="3"><h3>Resume</h3></StyledTableCell></TableRow>
-              <TableRow>
-                <TableCell className={classes.width}><h6>Description</h6></TableCell>
-                <TableCell colSpan="2"><h6>Actions</h6></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                {editStateDes? 
-                <>
-                <TableCell className={classes.width}>
-                      <TextField 
-                        className={classes.textField}
-                        id="desc"
-                        fullWidth
-                        multiline
-                        value={updateDesc}
-                        onChange={(e)=>handleDescChange(e)}
-                      />
-                  </TableCell>
-                </>
-                : <TableCell className={classes.width}>{resumeDescription}</TableCell>}
-                <TableCell>
-                  <Button onClick={()=>toggleEdit()}variant="contained" color="primary">
-                    {!editStateDes ? "Edit" : "Cancel"}
-                  </Button>
-                </TableCell>
-                {editStateDes && <TableCell><Button type="submit" variant="contained">Submit</Button></TableCell>}
-              </TableRow>
-            </TableBody>
-          </Table>
-          </form>
-        </TableContainer>
+        <DescriptionTable 
+          user={user}
+          section={"resume"}
+        />
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -196,12 +124,10 @@ const ResumeAdmin = ({user}) => {
               {resume.length ===  0 && <TableRow><TableCell>No entries yet</TableCell></TableRow>}
               {(resume.length > 0) &&
                 resume.map(skill => 
-                <TableRow className={classes.width}>
+                <TableRow id={uuid4()} className={classes.width}>
                   {editStateSkill && (updateSkill.id === skill.id ) ? 
                     <TableCell>
                       <TextField 
-                        margin="normal"
-                        // className={classes.width}
                         id={`name${updateSkill.id}`}
                         fullWidth
                         name="name"
@@ -212,17 +138,52 @@ const ResumeAdmin = ({user}) => {
                     : 
                     <TableCell>{skill.name}</TableCell>
                   }
-                  <TableCell>{skill.rating}</TableCell>
-                  <TableCell>{skill.category}</TableCell>
+                  {editStateSkill && (updateSkill.id === skill.id ) ? 
+                    <TableCell>
+                      <TextField 
+                        id={`rating${updateSkill.id}`}
+                        fullWidth
+                        name="rating"
+                        value={updateSkill.rating}
+                        onChange={(e) => handleSkillChange(e)}
+                      />
+                    </TableCell>
+                    : 
+                    <TableCell>{skill.rating}</TableCell>
+                  }
+                  {editStateSkill && (updateSkill.id === skill.id ) ? 
+                    <TableCell>
+                      <TextField 
+                        id={`category${updateSkill.id}`}
+                        fullWidth
+                        name="category"
+                        value={updateSkill.category}
+                        onChange={(e) => handleSkillChange(e)}
+                      />
+                    </TableCell>
+                    : 
+                    <TableCell>{skill.category}</TableCell>
+                  }
                   <TableCell>
-                    <Button onClick={()=>toggleSkillEdit(skill.id)} variant="contained" color="primary">
-                      {editStateSkill && (updateSkill.id === skill.id ) ? "Cancel" : "Edit"}
+                    {editStateSkill && (updateSkill.id === skill.id) ?
+                    <Button onClick={(e)=>skillEditSubmit(e)} disabled={editStateSkill && (updateSkill.id !== skill.id)} variant="contained" color="primary">
+                      Submit
                     </Button>
+                    :
+                    <Button onClick={()=>toggleSkillEdit(skill.id)} disabled={editStateSkill && (updateSkill.id !== skill.id)} variant="contained" color="primary">
+                      Edit
+                    </Button>
+                    }
                   </TableCell>
                   <TableCell>
+                    {editStateSkill && (updateSkill.id === skill.id) ?
+                    <Button onClick={()=>toggleSkillEdit(skill.id)} variant="contained" color="secondary">
+                      Cancel
+                    </Button>
+                    :
                     <Button variant="contained" color="secondary">
                       Delete
-                    </Button>
+                    </Button>}
                   </TableCell>
                 </TableRow>)}
             </TableBody>
