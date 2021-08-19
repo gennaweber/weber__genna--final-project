@@ -13,14 +13,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function DeletePopup( { anchorEl, setAnchorEl, handleDelete, deleteID, setDisabled }) {
+export default function DeletePopup( { anchorEl, setAnchorEl, handleDelete, deleteID }) {
   const classes = useStyles();
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
 
   const handleCancle = () => {
-    setDisabled(false)
     setAnchorEl(null)
   }
 

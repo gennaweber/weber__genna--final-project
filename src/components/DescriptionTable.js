@@ -42,16 +42,18 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const DescriptionTable = ({user, section}) => {
+const DescriptionTable = ({user, section, title}) => {
 
   const classes = useStyles();
 
   const [savedRes, setSavedRes] = useState("")
   const [editStateDes, setEditStateDes] = useState(false)
-  const [resumeDescription, setResumeDescription] = useState("Loading...")
+  const [rawDesc, setRawDesc] = useState("Loading...")
   const [updateDesc, setUpdateDesc] = useState({})
   const [status, setStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
+
+  console.log(section)
 
   useEffect(()=>{
     const fetchResumeDesc = async () => {
@@ -63,14 +65,14 @@ const DescriptionTable = ({user, section}) => {
           'Content-type' : 'application/json'
       }
     })
-    desc.json().then((desc) => setResumeDescription(desc))
+    desc.json().then((desc) => setRawDesc(desc))
     .catch((err)=>console.log(err));
   }
     fetchResumeDesc()
   }, [user, section, savedRes]);
 
     const toggleEdit = () => {
-      setUpdateDesc(resumeDescription.resumeDescription)
+      setUpdateDesc(rawDesc.resumeDescription || rawDesc.description)
       setEditStateDes(!editStateDes)
     }
 
@@ -81,7 +83,7 @@ const DescriptionTable = ({user, section}) => {
 
     const descFormSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/resume/description/${resumeDescription.resumeID}`, 
+      const response = await fetch (`http://localhost:5000/${section}/description/${rawDesc.resumeID || rawDesc.portfolioID}`, 
         {
           method: 'PUT',
           headers: {
@@ -110,7 +112,7 @@ const DescriptionTable = ({user, section}) => {
           <form className={classes.form} onSubmit={(e)=>descFormSubmit(e)}>
           <Table>
             <TableHead>
-            <TableRow><StyledTableCell colSpan="3"><h3>Resume</h3></StyledTableCell></TableRow>
+            <TableRow><StyledTableCell colSpan="3"><h3>{title}</h3></StyledTableCell></TableRow>
               <TableRow>
                 <TableCell className={classes.width}><h6>Description</h6></TableCell>
                 <TableCell colSpan="2"><h6>Actions</h6></TableCell>
@@ -131,7 +133,7 @@ const DescriptionTable = ({user, section}) => {
                       />
                   </TableCell>
                 </>
-                : <TableCell className={classes.width}>{resumeDescription.resumeDescription}</TableCell>}
+                : <TableCell className={classes.width}>{rawDesc.resumeDescription || rawDesc.description}</TableCell>}
                 <TableCell>
                   <Button onClick={()=>toggleEdit()}variant="contained" color="primary">
                     {!editStateDes ? "Edit" : "Cancel"}

@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { parseJwt } from '../../helpers/authHelper.js'
 import { useHistory } from 'react-router-dom'
 
 import SimpleFooter from '../../components/SimpleFooter'
 import ResumeAdmin from './sections/ResumeAdmin.js';
+import PortfolioAdmin from './sections/PortfolioAdmin.js'
 
 const Admin = ({auth, setAuth}) => {
 
   let history = useHistory();
   const token = sessionStorage.getItem('token')
   const user = parseJwt(token).email
-
-  const [portfolio, setPortfolio] = useState([])
 
   //Redirect to login screen when auth is false
   if (!auth){
@@ -29,6 +28,7 @@ const Admin = ({auth, setAuth}) => {
             <p className="sub-text left">Logged in as {user}</p>
           </div>
         <ResumeAdmin user={user}/>
+        <PortfolioAdmin user={user}/>
       </div>
     </main>
       <SimpleFooter 

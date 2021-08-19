@@ -26,8 +26,6 @@ const Popup = ({ isPopupOpen, togglePopup, clickedImg }) => {
     fetchProject(clickedImg)
   }, [clickedImg]);
 
-  console.log(project)
-
   return (
     <>
     { isPopupOpen &&

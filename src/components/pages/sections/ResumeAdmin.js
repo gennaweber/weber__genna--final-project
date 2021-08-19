@@ -178,9 +178,10 @@ const ResumeAdmin = ({user}) => {
         {!status || <Alert fullWidth className={classes.margin} severity={status || "info"}>{errorMessage}</Alert>}
         <DescriptionTable 
           user={user}
-          section={"resume"}
+          section="resume"
+          title="Resume"
         />
-        <TableContainer component={Paper}>
+        <TableContainer className={classes.margin} component={Paper}>
           <Table>
             <TableHead>
                 <TableCell size="small"><h6>Skill</h6></TableCell>
@@ -226,7 +227,7 @@ const ResumeAdmin = ({user}) => {
                         fullWidth
                         labelId="category-select"
                         id="category-select"
-                        name="category"
+                        name="categoryRef"
                         value={updateSkill.categoryRef}
                         onChange={(e) => handleSkillChange(e)}
                       >
@@ -318,7 +319,7 @@ const ResumeAdmin = ({user}) => {
                   </TableCell>
                 </TableRow>
                 }
-                {!addState &&
+                {(!addState && !editStateSkill)&&
                 <TableRow>
                   <TableCell align="center" colSpan="5">
                     <CustomButton onclick={addNewSkill}>Add new skill</CustomButton>
