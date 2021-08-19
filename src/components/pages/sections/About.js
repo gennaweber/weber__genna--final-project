@@ -16,7 +16,7 @@ const About = () => {
           'Content-type' : 'application/json'
       }
     })
-    desc.json().then((desc) => setDescription(desc))
+    desc.json().then((desc) => setDescription(desc.resumeDescription))
     .catch((err)=>console.log(err));
   }
 

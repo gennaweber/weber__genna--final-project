@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import DescriptionTable from '../../DescriptionTable';
 import CustomButton from '../../Button';
+import DeletePopup from '../../DeletePopup';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,9 +51,21 @@ const ResumeAdmin = ({user}) => {
   const [addState, setAddState] = useState(false)
   const [status, setStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [deleteID, setDeleteID] = useState(0)
 
   //TODO: LOG OUT USER AFTER CERTAIN TIME
 
+  console.log(deleteID)
+
+  //prevent accidental deletion
+    const handlePop = (event, skillID) => {
+      setAnchorEl(anchorEl ? null : event.currentTarget);
+      setDeleteID(skillID)
+    };
+
+
+  //get array of skills
   useEffect(()=>{
     const fetchResume = async (user) => {
     const res = await fetch(`http://localhost:5000/resume/${user}`,
@@ -138,6 +151,28 @@ const ResumeAdmin = ({user}) => {
       }
     }
 
+    const handleDelete = async (id) => {
+      const response = await fetch (`http://localhost:5000/resume/skills/${id}`, 
+        {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-type' : 'application/json'
+        }
+      })
+  
+      if (response.status === 200) {
+          setSavedRes(response)
+          setEditStateSkill(false)
+          setStatus("success")
+          setErrorMessage("Content deleted.")
+      } else {
+          setSavedRes(response)
+          setStatus("error")
+          setErrorMessage("Content could not be deleted.")
+      }
+    }
+
   return (
     <div>
         {!status || <Alert fullWidth className={classes.margin} severity={status || "info"}>{errorMessage}</Alert>}
@@ -220,9 +255,18 @@ const ResumeAdmin = ({user}) => {
                       Cancel
                     </Button>
                     :
-                    <Button variant="contained" color="secondary">
+                    <>
+                    <Button onClick={(e)=>handlePop(e, skill.id)} variant="contained" color="secondary">
                       Delete
-                    </Button>}
+                    </Button>
+                    <DeletePopup 
+                        anchorEl={anchorEl}
+                        setAnchorEl={setAnchorEl}
+                        handleDelete={handleDelete}
+                        deleteID={deleteID}
+                    />
+                    </>
+                    }
                   </TableCell>
                 </TableRow>)}
                 {addState &&
