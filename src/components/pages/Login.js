@@ -2,7 +2,7 @@ import React, { useState} from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import ErrorMessage from '../ErrorMessage'
 import SimpleFooter from '../SimpleFooter'
-import Button from '../Button'
+import CustomButton from '../Button'
 
 const Login = ({auth, setAuth }) => {  
 
@@ -44,7 +44,7 @@ const Login = ({auth, setAuth }) => {
               <input className="light-form" type="text" id="myEmail" name="myEmail" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required/>
               <input className="light-form" type="password" id="myPassword" name="myPassword" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required/>
               {!auth && attemptedAuth && <ErrorMessage message="Invalid credentials"/>}
-              <Button type="submit" position="right">SIGN IN</Button>
+              <CustomButton type="submit" position="right">SIGN IN</CustomButton>
             </form>
           </div>
         </main>

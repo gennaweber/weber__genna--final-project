@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core'
 import ErrorMessage from '../ErrorMessage'
 import SimpleFooter from '../SimpleFooter'
 import { validatePassword, validateName, validateEmail } from '../../helpers/validateHelper'
-import Button from '../Button'
+import CustomButton from '../Button'
 
 const useStyles = makeStyles({
   root: {
@@ -99,7 +99,7 @@ const CreateUser = (props) => {
               <input className="light-form" type="password" id="myPassword" name="myPassword" placeholder="Password" value={password} onChange={e => update(e)} required/>
               <input className="light-form" type="password" id="myPassword2" name="myPassword2" placeholder="Retype Password" onChange={e => update(e)} required/>
               {(passwordError.length > 0) && <ErrorMessage message={passwordError}/>}
-              <Button type="submit" position="right">SIGN IN</Button>
+              <CustomButton type="submit" position="right">SIGN IN</CustomButton>
           </form>
           </div>
         </main>

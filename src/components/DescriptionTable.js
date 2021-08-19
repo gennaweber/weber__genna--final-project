@@ -70,7 +70,7 @@ const DescriptionTable = ({user, section}) => {
   }, [user, section, savedRes]);
 
     const toggleEdit = () => {
-      setUpdateDesc(resumeDescription)
+      setUpdateDesc(resumeDescription.resumeDescription)
       setEditStateDes(!editStateDes)
     }
 
@@ -81,7 +81,7 @@ const DescriptionTable = ({user, section}) => {
 
     const descFormSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/resume/description/${user}`, 
+      const response = await fetch (`http://localhost:5000/resume/description/${resumeDescription.resumeID}`, 
         {
           method: 'PUT',
           headers: {
@@ -131,7 +131,7 @@ const DescriptionTable = ({user, section}) => {
                       />
                   </TableCell>
                 </>
-                : <TableCell className={classes.width}>{resumeDescription}</TableCell>}
+                : <TableCell className={classes.width}>{resumeDescription.resumeDescription}</TableCell>}
                 <TableCell>
                   <Button onClick={()=>toggleEdit()}variant="contained" color="primary">
                     {!editStateDes ? "Edit" : "Cancel"}

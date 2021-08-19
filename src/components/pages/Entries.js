@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import SimpleFooter from '../../components/SimpleFooter'
-import Button from '../Button'
+import CustomButton from '../Button'
 
 const Entries = ({auth, setAuth}) => {
 
@@ -84,7 +84,7 @@ const Entries = ({auth, setAuth}) => {
           </Table>
         </TableContainer>
         <div className="full-width">
-          <Button position="right" logout={logout}>LOGOUT</Button>
+          <CustomButton position="right" onclick={logout}>LOGOUT</CustomButton>
         </div>
       </div>
     </main>

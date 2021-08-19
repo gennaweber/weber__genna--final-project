@@ -3,7 +3,7 @@ import PatternShape from '../../svgs/PatternShape'
 import LightShape from '../../svgs/LightShape'
 import SmallShape from '../../svgs/SmallShape'
 import GreenShape from '../../svgs/GreenShape'
-import Button from '../../Button'
+import CustomButton from '../../Button'
 
 const Home = () => {
   return (
@@ -22,11 +22,11 @@ const Home = () => {
           <div className="sub-text">
             <h4>I'm a full-stack web developer.</h4>
           </div>
-          <Button  
+          <CustomButton  
             link="#contact"
           >
           GET IN TOUCH <i className="fas fa-paper-plane"></i>
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </section>
