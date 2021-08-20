@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid4 } from 'uuid'
-import { useDropzone } from 'react-dropzone'
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -71,7 +70,6 @@ const PortfolioAdmin = ({user}) => {
   const [errorMessage, setErrorMessage] = useState("")
   const [anchorEl, setAnchorEl] = useState(null);
   const [deleteID, setDeleteID] = useState(0)
-  const [imgUpload, setImgUpload] = useState({})
 
   //prevent accidental deletion
     const handlePop = (event, projectID) => {

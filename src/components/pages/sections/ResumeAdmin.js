@@ -81,6 +81,7 @@ const ResumeAdmin = ({user}) => {
     fetchResume(user);
   }, [user, savedRes])
 
+    //keep track of skill being updated
     const toggleSkillEdit = (skillID) => {
       setEditStateSkill(!editStateSkill)
       if(skillID !== "undefined"){
@@ -88,7 +89,7 @@ const ResumeAdmin = ({user}) => {
       }
     }
 
-
+  //set temporary skill object with each change
   const handleSkillChange = (e, i) => {
     let value = e.target.value
     let key = e.target.name
@@ -96,6 +97,7 @@ const ResumeAdmin = ({user}) => {
     setUpdateSkill((prevData) => ({...prevData, [key]:value}))
   }
 
+    //submit the temporary skill object to update the entry
     const skillEditSubmit = async event => {
       event.preventDefault()
       const response = await fetch (`http://localhost:5000/resume/skills/${updateSkill.id}`, 
@@ -120,11 +122,13 @@ const ResumeAdmin = ({user}) => {
       }
     }
 
+  //initialize an empty skill object
   const addNewSkill = () => {
     setAddState(!addState)
     setUpdateSkill({name: "", rating:"", categoryRef:1, resumeID:resume[0].resumeID})
   }
 
+  //submit skill object to create new skill
   const addSkillSubmit = async event => {
       event.preventDefault()
       const response = await fetch (`http://localhost:5000/resume/newskill/${user}`, 
@@ -149,6 +153,7 @@ const ResumeAdmin = ({user}) => {
       }
     }
 
+    //set active to false in database to remove from view
     const handleDelete = async (id) => {
       const response = await fetch (`http://localhost:5000/resume/skills/${id}`, 
         {
