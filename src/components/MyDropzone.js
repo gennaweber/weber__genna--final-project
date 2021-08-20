@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react'
-import axios from 'axios'
 import { useDropzone } from 'react-dropzone'
 
 function MyDropzone({portfolioID}) {
@@ -36,7 +35,7 @@ console.log(file)
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
       // Do whatever you want with the file contents
-        const binaryStr = reader.result
+        // const binaryStr = reader.result
       addImg(file)
 
       }
