@@ -3,14 +3,14 @@ import { useDropzone } from 'react-dropzone'
 
 function MyDropzone({portfolioID}) {
 
+  //TODO: GET IMAGE UPLOAD TO WORK WITH BACKEND
+
   const addImg = async (file) => {
       const response = await fetch (`http://localhost:5000/portfolio/newimg/${portfolioID}`, 
         {
           method: 'POST',
           body: file
       })
-
-console.log(file)
   
       if (response.status === 201) {
           // setSavedRes(response)
