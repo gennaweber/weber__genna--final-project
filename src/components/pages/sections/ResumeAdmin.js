@@ -56,8 +56,6 @@ const ResumeAdmin = ({user}) => {
 
   //TODO: LOG OUT USER AFTER CERTAIN TIME
 
-  console.log(deleteID)
-
   //prevent accidental deletion
     const handlePop = (event, skillID) => {
       setAnchorEl(anchorEl ? null : event.currentTarget);

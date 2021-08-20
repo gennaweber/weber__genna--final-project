@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid4 } from 'uuid'
+import { useDropzone } from 'react-dropzone'
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DescriptionTable from '../../DescriptionTable';
 import CustomButton from '../../Button';
 import DeletePopup from '../../DeletePopup';
+import MyDropzone from '../../MyDropzone';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
+  //TODO: LOG OUT USER AFTER CERTAIN TIME
+  //TODO: ADD PAGINATION TO TABLES
+
 const PortfolioAdmin = ({user}) => {
 
   const classes = useStyles();
@@ -66,8 +71,7 @@ const PortfolioAdmin = ({user}) => {
   const [errorMessage, setErrorMessage] = useState("")
   const [anchorEl, setAnchorEl] = useState(null);
   const [deleteID, setDeleteID] = useState(0)
-
-  //TODO: LOG OUT USER AFTER CERTAIN TIME
+  const [imgUpload, setImgUpload] = useState({})
 
   //prevent accidental deletion
     const handlePop = (event, projectID) => {
@@ -75,8 +79,7 @@ const PortfolioAdmin = ({user}) => {
       setDeleteID(projectID)
     };
 
-
-  //get array of projects
+  //get array of projects for table
   useEffect(()=>{
     const fetchPortfolio = async (user) => {
     const res = await fetch(`http://localhost:5000/portfolio/content/${user}`,
@@ -101,7 +104,7 @@ const PortfolioAdmin = ({user}) => {
       }
     }
 
-
+  //updates the temporary project object with each change
   const handleProjectChange = (e, i) => {
     let value = e.target.value
     let key = e.target.name
@@ -109,6 +112,7 @@ const PortfolioAdmin = ({user}) => {
     setUpdateProject((prevData) => ({...prevData, [key]:value}))
   }
 
+  //submits the temporary project object via the api
     const projectEditSubmit = async event => {
       event.preventDefault()
       const response = await fetch (`http://localhost:5000/portfolio/projects/${updateProject.id}`, 
@@ -133,11 +137,13 @@ const PortfolioAdmin = ({user}) => {
       }
     }
 
+  //initializes a new project with empty values
   const addNewProject = () => {
     setAddState(!addState)
     setUpdateProject({img: "", name: "", alt:"", subtitle:"", description: "", link:"", displayOrder:100, categoryRef:1, portfolioID:portfolio[0].portfolioID})
   }
 
+  //submits the temporary project object
   const addProjectSubmit = async event => {
       event.preventDefault()
       const response = await fetch (`http://localhost:5000/portfolio/newproject/${user}`, 
@@ -162,6 +168,7 @@ const PortfolioAdmin = ({user}) => {
       }
     }
 
+  //sets active to false in the database, removing it from view
     const handleDelete = async (id) => {
       const response = await fetch (`http://localhost:5000/portfolio/projects/${id}`, 
         {
@@ -202,6 +209,7 @@ const PortfolioAdmin = ({user}) => {
                 <TableCell size="small"><h6>Link</h6></TableCell>
                 <TableCell size="small"><h6>Description</h6></TableCell>
                 <TableCell size="small"><h6>Alt text</h6></TableCell>
+                <TableCell size="small"><h6>Display Priority</h6></TableCell>
                 <TableCell size="small" colSpan="2"><h6>Actions</h6></TableCell>
             </TableHead>
             <TableBody>
@@ -305,6 +313,20 @@ const PortfolioAdmin = ({user}) => {
                     : 
                     <TableCell>{project.alt}</TableCell>
                   }
+                  {editStateProject && (updateProject.id === project.id ) ? 
+                    <TableCell>
+                      <TextField 
+                        id={`order${updateProject.id}`}
+                        fullWidth
+                        multiline
+                        name="displayOrder"
+                        value={updateProject.displayOrder}
+                        onChange={(e) => handleProjectChange(e)}
+                      />
+                    </TableCell>
+                    : 
+                    <TableCell>{project.displayOrder}</TableCell>
+                  }
                   <TableCell>
                     {editStateProject && (updateProject.id === project.id) ?
                     <Button onClick={(e)=>projectEditSubmit(e)} disabled={addState || (editStateProject && (updateProject.id !== project.id))} variant="contained" color="primary">
@@ -339,6 +361,9 @@ const PortfolioAdmin = ({user}) => {
                 {addState &&
                   <TableRow>
                   <TableCell>
+                    <MyDropzone 
+                      portfolioID={portfolio[0].portfolioID}
+                    />
                   </TableCell>
                   <TableCell>
                     <TextField 
@@ -424,7 +449,7 @@ const PortfolioAdmin = ({user}) => {
                 }
                 {(!addState && !editStateProject) &&
                 <TableRow>
-                  <TableCell align="center" colSpan="9">
+                  <TableCell align="center" colSpan="10">
                     <CustomButton onclick={addNewProject}>Add new project</CustomButton>
                   </TableCell>
                 </TableRow>

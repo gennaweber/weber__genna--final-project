@@ -18,7 +18,7 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
           'Content-type' : 'application/json'
       }
     })
-    desc.json().then((desc) => setDescription(desc))
+    desc.json().then((desc) => setDescription(desc.description))
     .catch((err)=>console.log(err));
   }
 
@@ -43,7 +43,7 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
 
   return (
     <div className="img-container">
-      {(images.length > 1) && images.map(image => 
+      {(images.length > 1) && images.slice(0, 4).map(image => 
         <Image 
           src={image.src}
           alt={image.alt}

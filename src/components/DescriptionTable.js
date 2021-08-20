@@ -53,8 +53,6 @@ const DescriptionTable = ({user, section, title}) => {
   const [status, setStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
 
-  console.log(section)
-
   useEffect(()=>{
     const fetchResumeDesc = async () => {
     const desc = await fetch(`http://localhost:5000/${section}/description`,

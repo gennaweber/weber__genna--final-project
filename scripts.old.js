@@ -106,8 +106,6 @@ function submitData(e) {
   let valueEmail = document.getElementById("myEmail").value;
   let valueName = document.getElementById("myName").value;
 
-  console.log(valueComments.length);
-
   if (document.getElementById("contactForm").validity !== "valid" && (valueComments.length === 0 || valueEmail.length === 0 || valueName.length === 0)) {
     e.preventDefault();
     alert("Please check that you've filled everything out correctly.");
