@@ -19,7 +19,7 @@ function MyDropzone({upload, setPreviewImg, previewImg, preview}) {
       reader.readAsDataURL(file)
     })
     
-  }, [])
+  }, [setPreviewImg, upload])
 
   const {getRootProps, getInputProps} = useDropzone({onDrop, accept: 'image/jpeg, image/png', maxFiles:1})
 
