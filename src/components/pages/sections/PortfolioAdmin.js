@@ -106,8 +106,6 @@ const PortfolioAdmin = ({user}) => {
       setPreview(true)
     }
 
-  console.log(updateProject.img)
-
   //prevent accidental deletion
     const handlePop = (event, projectID) => {
       setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -139,8 +137,16 @@ const PortfolioAdmin = ({user}) => {
       }
     }
 
+  //reset values on cancel
+  const handleCancel = () => {
+    setEditStateProject(false)
+    setAddState(false)
+    setPreview("")
+    setFormData("")
+  }
+
   //updates the temporary project object with each change
-  const handleProjectChange = (e, i) => {
+  const handleProjectChange = (e) => {
     let value = e.target.value
     let key = e.target.name
 
@@ -150,6 +156,9 @@ const PortfolioAdmin = ({user}) => {
   //submits the temporary project object via the api
     const projectEditSubmit = async event => {
       event.preventDefault()
+      if(preview){
+        handleImgSubmit(event)
+      }
       const response = await fetch (`http://localhost:5000/portfolio/projects/${updateProject.id}`, 
         {
           method: 'PUT',
@@ -181,7 +190,8 @@ const PortfolioAdmin = ({user}) => {
   }
 
   //IMAGE SUBMISSION HANDLER
-  const handleImgSubmit = () => {
+  const handleImgSubmit = (event) => {
+    event.preventDefault()
     setInfo({
       image: "",
       name:""
@@ -223,7 +233,7 @@ const PortfolioAdmin = ({user}) => {
   const addProjectSubmit = async event => {
       event.preventDefault()
       if (preview) {
-        handleImgSubmit()
+        handleImgSubmit(event)
       }
       const response = await fetch (`http://localhost:5000/portfolio/newproject/${user}`, 
         {
@@ -301,6 +311,13 @@ const PortfolioAdmin = ({user}) => {
                 <TableRow id={uuid4()} className={classes.width}>
                   {editStateProject && (updateProject.id === project.id ) ? 
                     <TableCell>
+                      <MyDropzone 
+                        updateProject={updateProject}
+                        upload={upload}
+                        setPreviewImg={setPreviewImg} 
+                        previewImg={previewImg}
+                        preview={preview} 
+                      />
                     </TableCell>
                     : 
                     <TableCell><img className={classes.img} src={project.img} alt={project.alt}/></TableCell> 
@@ -422,7 +439,7 @@ const PortfolioAdmin = ({user}) => {
                   </TableCell>
                   <TableCell>
                     {editStateProject && (updateProject.id === project.id) ?
-                    <Button onClick={()=>toggleProjectEdit(project.id)} variant="contained" color="secondary">
+                    <Button onClick={()=>handleCancel()} variant="contained" color="secondary">
                       Cancel
                     </Button>
                     :
@@ -538,7 +555,7 @@ const PortfolioAdmin = ({user}) => {
                     </Button>
                   </TableCell>
                   <TableCell>
-                    <Button onClick={()=>addNewProject()} variant="contained" color="secondary">
+                    <Button onClick={()=>handleCancel()} variant="contained" color="secondary">
                       Cancel
                     </Button>
                   </TableCell>
