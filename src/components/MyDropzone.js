@@ -1,45 +1,22 @@
 import React, {useCallback} from 'react'
 import { useDropzone } from 'react-dropzone'
 
-function MyDropzone({portfolioID}) {
-
-  //TODO: GET IMAGE UPLOAD TO WORK WITH BACKEND
-
-  const addImg = async (file) => {
-      const response = await fetch (`http://localhost:5000/portfolio/newimg/${portfolioID}`, 
-        {
-          method: 'POST',
-          body: file
-      })
-  
-      if (response.status === 201) {
-          // setSavedRes(response)
-          // setAddState(false)
-          // setStatus("success")
-          console.log("New project successfully created!")
-      } else {
-          // setSavedRes(response)
-          // setStatus("error")
-          console.log("New project could not be created.")
-      }
-    }
+function MyDropzone({upload, setPreviewImg, previewImg, preview}) {
 
   const onDrop = useCallback((acceptedFiles) => {
 
     acceptedFiles.forEach((file) => {
 
+      upload(file)
 
       const reader = new FileReader()
-
       reader.onabort = () => console.log('file reading was aborted')
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = () => {
-      // Do whatever you want with the file contents
-        // const binaryStr = reader.result
-      addImg(file)
-
+      const useableUpload = reader.result
+      setPreviewImg({src: useableUpload, alt: file.name})
       }
-      reader.readAsArrayBuffer(file)
+      reader.readAsDataURL(file)
     })
     
   }, [])
@@ -47,10 +24,18 @@ function MyDropzone({portfolioID}) {
   const {getRootProps, getInputProps} = useDropzone({onDrop, accept: 'image/jpeg, image/png', maxFiles:1})
 
   return (
+    <>
+    {!preview ?
     <div {...getRootProps()}>
       <input {...getInputProps()} />
       <p>Drag 'n' drop some files here, or click to select files</p>
     </div>
+    :
+    <div>
+      <img height="100" width="100" src={previewImg.src} alt={previewImg.alt}/>
+    </div>
+    }
+  </>
   )
 }
 

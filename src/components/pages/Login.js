@@ -28,7 +28,7 @@ const Login = ({auth, setAuth }) => {
       if (response.status === 200) {
         setAuth(true)
         sessionStorage.setItem('token', payload.token)
-        let { from } = location.state || { from: { pathname: "/entries"} }
+        let { from } = location.state || { from: { pathname: "/admin"} }
         history.replace(from)
       } else {
         setAttemptedAuth(true)

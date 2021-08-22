@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { v4 as uuid4 } from 'uuid'
+import _ from 'lodash'
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -71,6 +73,41 @@ const PortfolioAdmin = ({user}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [deleteID, setDeleteID] = useState(0)
 
+  //IMAGE HANDLING
+  const [formData, setFormData] = useState("")
+  const [info, setInfo] = useState({
+    name: "",
+    image: ""
+  })
+
+  const [progressPercent, setProgressPercent] = useState(0)
+  const [error, setError] = useState({
+    found: false,
+    message: ""
+  })
+
+  console.log(info, progressPercent, error)
+
+  const [preview, setPreview] = useState(false)
+  const [previewImg, setPreviewImg] = useState({src: "", alt: ""})
+
+  // console.log(portfolio[portfolio.length - 1].img)
+
+  const upload = (file) => {
+      let data = new FormData()
+      data.append('portfolioImg', file)
+      data.append('name', file.name)
+      let filenameSplit = file.name.split(".")
+      let filename = _.kebabCase(filenameSplit[0])
+      let newName = [filename, filenameSplit[1]].join('.')
+
+      setUpdateProject((prevData) => ({...prevData, img: `./images/img-${newName}`}))
+      setFormData(data)
+      setPreview(true)
+    }
+
+  console.log(updateProject.img)
+
   //prevent accidental deletion
     const handlePop = (event, projectID) => {
       setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -139,11 +176,55 @@ const PortfolioAdmin = ({user}) => {
   const addNewProject = () => {
     setAddState(!addState)
     setUpdateProject({img: "", name: "", alt:"", subtitle:"", description: "", link:"", displayOrder:100, categoryRef:1, portfolioID:portfolio[0].portfolioID})
+    setFormData("")
+    setPreview(false)
+  }
+
+  //IMAGE SUBMISSION HANDLER
+  const handleImgSubmit = () => {
+    setInfo({
+      image: "",
+      name:""
+    })
+
+    setProgressPercent(0)
+
+    const options = {
+      onUploadProgress: (progressEvent) => {
+        const {loaded, total} = progressEvent
+        let percent = Math.floor((loaded * 100) / total)
+        console.log(`${loaded}kb of ${total}kb | ${percent}%`)
+        setProgressPercent(percent)
+      }
+    }
+
+    axios.post(`http://localhost:5000/portfolio/newimg/${portfolio[0].portfolioID}`, formData, options)
+      .then(res => {
+        setTimeout(()=> {
+          setInfo(res.data)
+          setProgressPercent(0)
+      }, 1000)
+    }).catch(err => {
+        console.log(err.response)
+        setError({
+          found: true,
+          message: err.response.data.errors
+        })
+      setTimeout(()=>{
+        setError({
+          found: false,
+          message: ""
+          }, 3000)
+      })
+    })
   }
 
   //submits the temporary project object
   const addProjectSubmit = async event => {
       event.preventDefault()
+      if (preview) {
+        handleImgSubmit()
+      }
       const response = await fetch (`http://localhost:5000/portfolio/newproject/${user}`, 
         {
           method: 'POST',
@@ -165,6 +246,7 @@ const PortfolioAdmin = ({user}) => {
           setErrorMessage("New project could not be created.")
       }
     }
+
 
   //sets active to false in the database, removing it from view
     const handleDelete = async (id) => {
@@ -188,6 +270,8 @@ const PortfolioAdmin = ({user}) => {
           setErrorMessage("Content could not be deleted.")
       }
     }
+
+
 
   return (
     <div className={classes.bigMargin}>
@@ -219,7 +303,7 @@ const PortfolioAdmin = ({user}) => {
                     <TableCell>
                     </TableCell>
                     : 
-                    <TableCell><img className={classes.img} src={project.img} alt={project.alt}/></TableCell>
+                    <TableCell><img className={classes.img} src={project.img} alt={project.alt}/></TableCell> 
                   }
                   {editStateProject && (updateProject.id === project.id ) ? 
                     <TableCell>
@@ -360,7 +444,11 @@ const PortfolioAdmin = ({user}) => {
                   <TableRow>
                   <TableCell>
                     <MyDropzone 
-                      portfolioID={portfolio[0].portfolioID}
+                      updateProject={updateProject}
+                      upload={upload}
+                      setPreviewImg={setPreviewImg} 
+                      previewImg={previewImg}
+                      preview={preview}
                     />
                   </TableCell>
                   <TableCell>
@@ -430,6 +518,17 @@ const PortfolioAdmin = ({user}) => {
                         fullWidth
                         name="alt"
                         value={updateProject.alt}
+                        onChange={(e) => handleProjectChange(e)}
+                      />
+                  </TableCell>
+                  <TableCell>
+                      <TextField 
+                        multiline
+                        placeholder="Display order"
+                        id={`order${updateProject.id}`}
+                        fullWidth
+                        name="displayOrder"
+                        value={updateProject.displayOrder}
                         onChange={(e) => handleProjectChange(e)}
                       />
                   </TableCell>

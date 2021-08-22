@@ -13,6 +13,7 @@
     "bcrypt": "^5.0.1",
     "framer-motion": "^4.1.17",
     "jwt": "^0.2.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.4",
