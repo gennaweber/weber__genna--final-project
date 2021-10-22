@@ -10,7 +10,7 @@ const Card = ({ color, icon, title, skillID }) => {
   }
 
   const fetchSkills = async (skillID) => {
-    const res = await fetch(`http://localhost:5000/resume/skills/${skillID}`,
+    const res = await fetch(`${process.env.REACT_APP_API}/resume/skills/${skillID}`,
       {
         method: 'GET',
         headers: {

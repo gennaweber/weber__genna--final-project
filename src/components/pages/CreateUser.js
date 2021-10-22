@@ -30,7 +30,7 @@ const CreateUser = (props) => {
     event.preventDefault()
 
     if(validName && validEmail && (passwordError.length === 0) && (submitMessage === "")){
-        const response = await fetch('http://localhost:5000/users', {
+        const response = await fetch(`${process.env.REACT_APP_API}/users`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -42,7 +42,7 @@ const CreateUser = (props) => {
         if (response.status >= 400) {
             setSubmitMessage(`Oops! Error: ${payload.message} for fields: ${payload.invalid.join(",")}`)
         } else {
-            setSubmitMessage(`Congrats! User created with id: ${payload.id}`)
+            setSubmitMessage(`Congrats! User created with email: ${payload.email}`)
         }
       }
       else{

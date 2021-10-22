@@ -115,7 +115,7 @@ const PortfolioAdmin = ({user}) => {
   //get array of projects for table
   useEffect(()=>{
     const fetchPortfolio = async (user) => {
-    const res = await fetch(`http://localhost:5000/portfolio/content/${user}`,
+    const res = await fetch(`${process.env.REACT_APP_API}/portfolio/content/${user}`,
       {
         method: 'GET',
         headers: {
@@ -159,7 +159,7 @@ const PortfolioAdmin = ({user}) => {
       if(preview){
         handleImgSubmit(event)
       }
-      const response = await fetch (`http://localhost:5000/portfolio/projects/${updateProject.id}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/portfolio/projects/${updateProject.id}`, 
         {
           method: 'PUT',
           headers: {
@@ -208,7 +208,7 @@ const PortfolioAdmin = ({user}) => {
       }
     }
 
-    axios.post(`http://localhost:5000/portfolio/newimg/${portfolio[0].portfolioID}`, formData, options)
+    axios.post(`${process.env.REACT_APP_API}/portfolio/newimg/${portfolio[0].portfolioID}`, formData, options)
       .then(res => {
         setTimeout(()=> {
           setInfo(res.data)
@@ -235,7 +235,7 @@ const PortfolioAdmin = ({user}) => {
       if (preview) {
         handleImgSubmit(event)
       }
-      const response = await fetch (`http://localhost:5000/portfolio/newproject/${user}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/portfolio/newproject/${user}`, 
         {
           method: 'POST',
           headers: {
@@ -260,7 +260,7 @@ const PortfolioAdmin = ({user}) => {
 
   //sets active to false in the database, removing it from view
     const handleDelete = async (id) => {
-      const response = await fetch (`http://localhost:5000/portfolio/projects/${id}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/portfolio/projects/${id}`, 
         {
           method: 'DELETE',
           headers: {

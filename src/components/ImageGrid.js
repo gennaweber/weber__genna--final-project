@@ -10,7 +10,7 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
   const [images, setImages] = useState([])
 
     const fetchDesc = async () => {
-    const desc = await fetch(`http://localhost:5000/portfolio/description`,
+    const desc = await fetch(`${process.env.REACT_APP_API}/portfolio/description`,
       {
         method: 'GET',
         headers: {
@@ -23,7 +23,7 @@ const ImageGrid = ({togglePopup, setClickedImg}) => {
   }
 
     const fetchImgs = async () => {
-    const imgs = await fetch(`http://localhost:5000/portfolio/images`,
+    const imgs = await fetch(`${process.env.REACT_APP_API}/portfolio/images`,
       {
         method: 'GET',
         headers: {

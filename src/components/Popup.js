@@ -9,7 +9,7 @@ const Popup = ({ isPopupOpen, togglePopup, clickedImg }) => {
   const [project, setProject] = useState({});
 
   const fetchProject = async (id) => {
-    const pro = await fetch(`http://localhost:5000/portfolio/project/${id}`,
+    const pro = await fetch(`${process.env.REACT_APP_API}/portfolio/project/${id}`,
       {
         method: 'GET',
         headers: {

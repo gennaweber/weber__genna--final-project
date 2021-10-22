@@ -8,7 +8,7 @@ const About = () => {
   const [categories, setCategories] = useState([])
 
   const fetchDesc = async () => {
-    const desc = await fetch(`http://localhost:5000/resume/description`,
+    const desc = await fetch(`${process.env.REACT_APP_API}/resume/description`,
       {
         method: 'GET',
         headers: {
@@ -21,7 +21,7 @@ const About = () => {
   }
 
   const fetchCats = async () => {
-    const cat = await fetch(`http://localhost:5000/resume/categories`,
+    const cat = await fetch(`${process.env.REACT_APP_API}/resume/categories`,
       {
         method: 'GET',
         headers: {

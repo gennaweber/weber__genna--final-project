@@ -14,7 +14,7 @@ const Login = ({auth, setAuth }) => {
 
     const loginSubmit = async event => {
       event.preventDefault()
-      const response = await fetch ("http://localhost:5000/auth", 
+      const response = await fetch (`${process.env.REACT_APP_API}/auth`, 
         {
           method: 'POST',
           headers: {

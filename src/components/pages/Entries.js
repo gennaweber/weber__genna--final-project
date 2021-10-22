@@ -38,7 +38,7 @@ const Entries = ({auth, setAuth}) => {
 
   useEffect(() => {
       const getData = async () => {
-          const response = await fetch('http://localhost:5000/contact_form/entries', {
+          const response = await fetch(`${process.env.REACT_APP_API}/contact_form/entries`, {
               method: 'GET',
               headers: {
                   'Authorization': `Bearer ${token}`

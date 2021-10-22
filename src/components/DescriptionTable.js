@@ -55,7 +55,7 @@ const DescriptionTable = ({user, section, title}) => {
 
   useEffect(()=>{
     const fetchResumeDesc = async () => {
-    const desc = await fetch(`http://localhost:5000/${section}/description`,
+    const desc = await fetch(`${process.env.REACT_APP_API}/${section}/description`,
       {
         method: 'GET',
         headers: {
@@ -81,7 +81,7 @@ const DescriptionTable = ({user, section, title}) => {
 
     const descFormSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/${section}/description/${rawDesc.resumeID || rawDesc.portfolioID}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/${section}/description/${rawDesc.resumeID || rawDesc.portfolioID}`, 
         {
           method: 'PUT',
           headers: {

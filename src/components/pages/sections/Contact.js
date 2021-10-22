@@ -50,7 +50,7 @@ const Contact = (props) => {
     event.preventDefault()
 
     if(validName && validEmail && validContent && (submitMessage === "")){
-        const response = await fetch('http://localhost:5000/contact_form/entries', {
+        const response = await fetch(`${process.env.REACT_APP_API}/contact_form/entries`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -63,7 +63,7 @@ const Contact = (props) => {
             setSubmitMessage(`Oops! Error: ${payload.message} for fields: ${payload.invalid.join(",")}`)
         } else {
             console.log(payload)
-            setSubmitMessage(`Congrats! Submission submitted with id: ${payload.insertId}`)
+            setSubmitMessage(`Congrats! Submission submitted`)
         }
       }
       else{

@@ -66,7 +66,7 @@ const ResumeAdmin = ({user}) => {
   //get array of skills
   useEffect(()=>{
     const fetchResume = async (user) => {
-    const res = await fetch(`http://localhost:5000/resume/${user}`,
+    const res = await fetch(`${process.env.REACT_APP_API}/resume/${user}`,
       {
         method: 'GET',
         headers: {
@@ -100,7 +100,7 @@ const ResumeAdmin = ({user}) => {
     //submit the temporary skill object to update the entry
     const skillEditSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/resume/skills/${updateSkill.id}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/resume/skills/${updateSkill.id}`, 
         {
           method: 'PUT',
           headers: {
@@ -131,7 +131,7 @@ const ResumeAdmin = ({user}) => {
   //submit skill object to create new skill
   const addSkillSubmit = async event => {
       event.preventDefault()
-      const response = await fetch (`http://localhost:5000/resume/newskill/${user}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/resume/newskill/${user}`, 
         {
           method: 'POST',
           headers: {
@@ -155,7 +155,7 @@ const ResumeAdmin = ({user}) => {
 
     //set active to false in database to remove from view
     const handleDelete = async (id) => {
-      const response = await fetch (`http://localhost:5000/resume/skills/${id}`, 
+      const response = await fetch (`${process.env.REACT_APP_API}/resume/skills/${id}`, 
         {
           method: 'DELETE',
           headers: {

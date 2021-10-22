@@ -1,0 +1,25 @@
+stages:
+    - build
+    - deploy
+
+build_react:
+    stage: build
+    image: node:lts
+    before_script:
+        - npm install
+    script:
+        - REACT_APP_API=$REACT_APP_API npm run build  #make sure to set enviroment variables with build
+    artifacts: # this is necessary to ensure the build folder is available for our deploy
+        paths:
+            - build/
+
+deploy_gcp:
+    only:
+        - master # main or master depending on whatever the name of your primary branch is
+    stage: deploy
+    image: google/cloud-sdk
+    before_script:
+        - echo $SERVICE_KEY_FILE > /tmp/$CI_PIPELINE_ID.json
+        - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json # we need to authenticate
+    script:
+        - gsutil -m cp -r build/* gs://$BUCKET_NAME
